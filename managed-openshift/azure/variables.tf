@@ -85,3 +85,42 @@ variable "worker_subnet_cidr" {
     type = string
     description = "Worker Subnet CIDR"
 }
+
+variable "dns_zone_name" {
+    type = string
+    description = "Domain/subdomain to be used"
+}
+
+variable "master_vm_size" {
+    type = string
+    default = "Standard_D8s_v3"
+    description = "VM size of the master nodes"
+}
+
+variable "worker_vm_size" {
+    type = string
+    default = "Standard_D16s_v3"
+    description = "VM size of the worker nodes"
+}
+
+variable "worker_vm_disk_size" {
+    type = number
+    default = 256
+    description = "Disk size of worker nodes"
+}
+
+variable "worker_vm_count" {
+    type = number
+    default = 3
+    description = "Number of worker nodes"
+}
+
+variable "ingress_visibility" {
+    type = string
+    description = "Ingress endpoints resolve to private or public IP"
+}
+
+variable "api_server_visibility" {
+    type = string
+    description = "API server resolve to private or public IP"
+}
