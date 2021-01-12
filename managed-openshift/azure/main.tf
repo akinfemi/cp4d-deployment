@@ -31,6 +31,7 @@ module "aro" {
   resource_group = azurerm_resource_group.cpdrg.name
   region = var.azure_region
   azure_client_id = var.azure_client_id
+  azure_client_secret = var.azure_client_secret
   cluster_name = var.cluster_name
   api_server_visibility = var.api_server_visibility
   ingress_visibility = var.ingress_visibility
@@ -44,4 +45,5 @@ module "aro" {
   worker_vm_size = var.worker_vm_size
   worker_vm_count = var.worker_vm_count
   worker_vm_disk_size = var.worker_vm_disk_size
+  resource_group_id = azurerm_resource_group.cpdrg.id
 }

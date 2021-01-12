@@ -13,6 +13,9 @@ resource "azurerm_template_deployment" "azure-arocluster" {
         "azClientId": {
             "type": "string"
         },
+        "azClientSecret": {
+            "type": "string"
+        },
         "clusterName": {
             "defaultValue": "arocluster",
             "type": "string"
@@ -50,6 +53,9 @@ resource "azurerm_template_deployment" "azure-arocluster" {
         "workerVmDiskSize": {
             "type": "string",
             "defaultValue": "128"
+        },
+        "resourceGroupId": {
+            "type": "string"
         }
     },
     "variables": {
@@ -79,10 +85,12 @@ resource "azurerm_template_deployment" "azure-arocluster" {
             "location": "[parameters('location')]",
             "properties": {
                 "clusterProfile": {
-                    "domain": "[parameters('domain')]"
+                    "domain": "[parameters('domain')]",
+                    "resourceGroupId": "[parameters('resourceGroupId')]"
                 },
                 "servicePrincipalProfile": {
-                    "clientId": "[parameters('azClientId')]"
+                    "clientId": "[parameters('azClientId')]",
+                    "clientSecret": "[parameters('azClientSecret')]"
                 },
                 "networkProfile": {
                     "podCidr": "[variables('podCidr')]",
@@ -119,6 +127,7 @@ resource "azurerm_template_deployment" "azure-arocluster" {
   parameters = {
     "location" = var.region
     "azClientId" = var.azure_client_id
+    "azClientSecret" = var.azure_client_secret
     "clusterName" = var.cluster_name
     "apiServerVisibility" = var.api_server_visibility
     "ingressVisibility" = var.ingress_visibility
@@ -130,6 +139,7 @@ resource "azurerm_template_deployment" "azure-arocluster" {
     "workerVmSize" = var.worker_vm_size
     "workerVmCount" = var.worker_vm_count
     "workerVmDiskSize" = var.worker_vm_disk_size
+    "resourceGroupId" = var.resource_group_id
   }
   deployment_mode = "Incremental"
 }

@@ -3,6 +3,11 @@ variable "resource_group" {
     description = "Resource group for the deployment"
 }
 
+variable "resource_group_id" {
+    type = string
+    description = "Resource Group ID"
+}
+
 variable "region" {
     type = string
     description = "Azure Region to deploy resources to. NOTE: If using an existing network, you must provide the network region here."
@@ -11,6 +16,11 @@ variable "region" {
 variable "azure_client_id" {
     type        = string
     description = "The app ID that should be used to interact with Azure API"
+}
+
+variable "azure_client_secret" {
+    type        = string
+    description = "The password that should be used to interact with Azure API"
 }
 
 variable "cluster_name" {

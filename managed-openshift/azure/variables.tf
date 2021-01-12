@@ -118,9 +118,19 @@ variable "worker_vm_count" {
 variable "ingress_visibility" {
     type = string
     description = "Ingress endpoints resolve to private or public IP"
+
+    validation {
+      condition = var.ingress_visibility == "Private" || var.ingress_visibility == "Public"
+      error_message = "The ingress_visibilty variable has to be Private or Public (note the upper case P)."
+    }
 }
 
 variable "api_server_visibility" {
     type = string
     description = "API server resolve to private or public IP"
+
+    validation {
+      condition = var.api_server_visibility == "Private" || var.api_server_visibility == "Public"
+      error_message = "The api_server_visibility variable has to be Private or Public (note the upper case P)."
+    }
 }
