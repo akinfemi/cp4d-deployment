@@ -41,7 +41,7 @@ resource "azurerm_subnet" "master" {
     address_prefixes     = [var.master_subnet_cidr]
     
     enforce_private_link_service_network_policies = true
-    service_endpoints = ["Microsoft.Storage", "Microsoft.Web", "Microsoft.ContainerRegistry"]
+    service_endpoints = ["Microsoft.Storage", "Microsoft.ContainerRegistry"]
 }
 
 resource "azurerm_subnet" "worker" {
@@ -51,5 +51,5 @@ resource "azurerm_subnet" "worker" {
     virtual_network_name = azurerm_virtual_network.cluster_vnet[0].name
     address_prefixes     = [var.worker_subnet_cidr]
 
-    service_endpoints = ["Microsoft.Storage", "Microsoft.Web", "Microsoft.ContainerRegistry"]
+    service_endpoints = ["Microsoft.Storage", "Microsoft.ContainerRegistry"]
 }

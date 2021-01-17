@@ -13,3 +13,7 @@ output "master_subnet_id" {
 output "worker_subnet_id" {
     value = local.worker_subnet_id
 }
+
+output "virtual_network_id" {
+    value = local.virtual_network_id
+}

@@ -121,7 +121,7 @@ variable "ingress_visibility" {
 
     validation {
       condition = var.ingress_visibility == "Private" || var.ingress_visibility == "Public"
-      error_message = "The ingress_visibilty variable has to be Private or Public (note the upper case P)."
+      error_message = "The ingress_visibilty variable has to be 'Private' or 'Public' (note the upper case P)."
     }
 }
 
@@ -131,6 +131,11 @@ variable "api_server_visibility" {
 
     validation {
       condition = var.api_server_visibility == "Private" || var.api_server_visibility == "Public"
-      error_message = "The api_server_visibility variable has to be Private or Public (note the upper case P)."
+      error_message = "The api_server_visibility variable has to be 'Private' or 'Public' (note the upper case P)."
     }
+}
+
+variable "pull_secret_file_path" {
+    type = string
+    description = "File path to the pull secret"
 }

@@ -1,3 +1,17 @@
+# resource "azurerm_role_assignment" "client_id_assignment" {
+#   count			= length(var.roles)
+#   scope			= var.subscription_id
+#   role_definition_name	= var.roles[count.index].role
+#   principal_id		= var.client_object_id
+# }
+
+resource "azurerm_role_assignment" "rp_assignment" {
+  count			= length(var.rp_roles)
+  scope			= var.virtual_network_id
+  role_definition_name	= var.roles[count.index].role
+  principal_id		= var.aro_rp_object_id
+}
+
 resource "azurerm_template_deployment" "azure-arocluster" {
   name  = var.cluster_name
   resource_group_name = var.resource_group
@@ -14,7 +28,7 @@ resource "azurerm_template_deployment" "azure-arocluster" {
             "type": "string"
         },
         "azClientSecret": {
-            "type": "string"
+            "type": "securestring"
         },
         "clusterName": {
             "defaultValue": "arocluster",
@@ -56,12 +70,15 @@ resource "azurerm_template_deployment" "azure-arocluster" {
         },
         "resourceGroupId": {
             "type": "string"
+        },
+        "pullSecret":{
+            "type": "securestring"
         }
     },
     "variables": {
         "serviceCidr": "192.30.0.0/16",
         "cidr-prefix": "[split(parameters('virtualNetworkCIDR'), '.')[0]]",
-		"podCidr": "[concat(variables('cidr-prefix'), '.128.0.0/14')]"
+        "podCidr": "[concat(variables('cidr-prefix'), '.128.0.0/14')]"
     },
     "resources": [
         {
@@ -86,7 +103,8 @@ resource "azurerm_template_deployment" "azure-arocluster" {
             "properties": {
                 "clusterProfile": {
                     "domain": "[parameters('domain')]",
-                    "resourceGroupId": "[parameters('resourceGroupId')]"
+                    "resourceGroupId": "[parameters('resourceGroupId')]",
+                    "pullSecret": "[parameters('pullSecret')]"
                 },
                 "servicePrincipalProfile": {
                     "clientId": "[parameters('azClientId')]",
@@ -140,6 +158,7 @@ resource "azurerm_template_deployment" "azure-arocluster" {
     "workerVmCount" = var.worker_vm_count
     "workerVmDiskSize" = var.worker_vm_disk_size
     "resourceGroupId" = var.resource_group_id
+    "pullSecret" = file(var.pull_secret_file_path)
   }
   deployment_mode = "Incremental"
 }

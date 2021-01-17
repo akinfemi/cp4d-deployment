@@ -7,6 +7,12 @@ provider "azurerm" {
   environment     = var.azure_environment
 }
 
+data "azurerm_client_config" "current" {
+}
+
+data "azurerm_subscription" "current" {
+}
+
 resource "azurerm_resource_group" "cpdrg" {
   name = var.resource_group
   location = var.azure_region
@@ -46,4 +52,8 @@ module "aro" {
   worker_vm_count = var.worker_vm_count
   worker_vm_disk_size = var.worker_vm_disk_size
   resource_group_id = azurerm_resource_group.cpdrg.id
+  virtual_network_id = module.vnet.virtual_network_id
+  client_object_id = data.azurerm_client_config.current.object_id
+  pull_secret_file_path = var.pull_secret_file_path
+  subscription_id = data.azurerm_subscription.current.id
 }
