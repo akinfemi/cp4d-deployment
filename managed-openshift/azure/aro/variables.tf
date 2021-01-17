@@ -43,6 +43,11 @@ variable "virtual_network_cidr" {
     description = "Virtual Network CIDR"
 }
 
+variable "virtual_network_name" {
+    type = string
+    description = "Virtual Network Name"
+}
+
 variable "virtual_network_id" {
     type = string
     description = "Virtual Network ID"

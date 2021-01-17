@@ -63,7 +63,7 @@ variable "virtual_network_cidr" {
 }
 
 variable "master_subnet_name" {
-    default = "master-subnet"
+    default = "master"
     type = string
     description = "Name for master subnet. Subnet to deploy master nodes"
 }
@@ -75,7 +75,7 @@ variable "master_subnet_cidr" {
 }
 
 variable "worker_subnet_name" {
-    default = "worker-subnet"
+    default = "worker"
     type = string
     description = "Name for worker subnet. Subnet to deploy worker nodes"
 }

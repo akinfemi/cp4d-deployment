@@ -42,7 +42,7 @@ module "aro" {
   api_server_visibility = var.api_server_visibility
   ingress_visibility = var.ingress_visibility
   # virtual_network_rg = var.preexisting_network ? var.existing_vnet_resource_group : azurerm_resource_group.cpdrg.name
-  # virtual_network_name = module.vnet.virtual_network_name
+  virtual_network_name = module.vnet.virtual_network_name
   virtual_network_cidr = module.vnet.network_cidr
   master_subnet_id = module.vnet.master_subnet_id
   worker_subnet_id = module.vnet.worker_subnet_id
